@@ -8,6 +8,7 @@ import type { Dictionary } from '@/i18n/dictionaries';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { addDays, osloWallTimeToDate } from '@/lib/time';
 import { FREE_MATCHES_ONLY } from '@/lib/pricing';
+import { isRateLimited } from '@/lib/rate-limit-errors';
 
 export type MatchFormErrorKey = keyof Dictionary['matchForm']['errors'];
 export type MatchFormField =
@@ -129,6 +130,7 @@ export async function createMatchAction(_prev: MatchFormState, formData: FormDat
     const { data: createdRows, error } = await supabase.from('matches').insert(rows).select('id, starts_at');
     const created = createdRows?.sort((a, b) => a.starts_at.localeCompare(b.starts_at))[0];
     if (error || !created) {
+        if (isRateLimited(error)) return withValues({ error: 'rateLimited' }, formData);
         console.error('createMatch failed', error);
         return withValues({ error: 'generic' }, formData);
     }
@@ -164,6 +166,7 @@ export async function updateMatchAction(_prev: MatchFormState, formData: FormDat
         if (error.code === '23514') {
             return withValues({ fieldErrors: { maxPlayers: 'maxBelowConfirmed' } }, formData);
         }
+        if (isRateLimited(error)) return withValues({ error: 'rateLimited' }, formData);
         console.error('updateMatch failed', error);
         return withValues({ error: 'generic' }, formData);
     }

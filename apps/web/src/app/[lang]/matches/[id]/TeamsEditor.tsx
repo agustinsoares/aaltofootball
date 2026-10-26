@@ -98,7 +98,11 @@ export default function TeamsEditor({ locale, matchId, players, dict }: TeamsEdi
                             </div>
                         ))}
                     </div>
-                    {state.error && <Alert tone="error">{dict.errors.generic}</Alert>}
+                    {state.error && (
+                        <Alert tone="error">
+                            {state.error === 'rateLimited' ? dict.errors.rateLimited : dict.errors.generic}
+                        </Alert>
+                    )}
                     <button type="submit" disabled={pending} className={buttonStyles.primary}>
                         {dict.save}
                     </button>

@@ -195,6 +195,7 @@ const nb: Dictionary = {
             any: 'Hvor som helst',
         },
         errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
             nameRequired: 'Skriv inn navnet ditt (2–80 tegn).',
             generic: 'Vi fikk ikke lagret profilen. Prøv igjen.',
         },
@@ -267,6 +268,7 @@ const nb: Dictionary = {
         shareText: '{title}: {date} på {venue}. Bli med på Aalto Football!',
         back: 'Alle kamper',
         errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
             notSignedIn: 'Logg inn for å melde deg på denne kampen.',
             notFound: 'Denne kampen finnes ikke lenger.',
             closed: 'Denne kampen tar ikke imot flere spillere.',
@@ -302,6 +304,7 @@ const nb: Dictionary = {
         save: 'Lagre endringer',
         cancel: 'Avbryt',
         errors: {
+            rateLimited: 'Du har opprettet flere kamper på kort tid. Vent 5 minutter før du oppretter en ny.',
             title: 'Tittelen må ha 3–120 tegn.',
             venue: 'Velg en bane.',
             dateTime: 'Velg en dato og et tidspunkt fram i tid.',
@@ -337,7 +340,10 @@ const nb: Dictionary = {
         reshuffle: 'Stokk på nytt',
         save: 'Lagre lagene',
         hint: 'Fordelt etter nivå, med én keeper per lag. Se over og lagre.',
-        errors: { generic: 'Vi fikk ikke lagret lagene. Prøv igjen.' },
+        errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
+            generic: 'Vi fikk ikke lagret lagene. Prøv igjen.',
+        },
     },
     result: {
         title: 'Resultat',
@@ -347,6 +353,7 @@ const nb: Dictionary = {
         save: 'Lagre resultat',
         edit: 'Endre resultat',
         errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
             score: 'Fyll inn begge resultatene (0–99).',
             notStarted: 'Du kan registrere resultatet når kampen har startet.',
             generic: 'Vi fikk ikke lagret resultatet. Prøv igjen.',
@@ -358,7 +365,10 @@ const nb: Dictionary = {
         save: 'Lagre vurderinger',
         saved: 'Takk! Vurderingene er lagret.',
         starLabel: '{score} av 5',
-        errors: { generic: 'Vi fikk ikke lagret vurderingene. Prøv igjen.' },
+        errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
+            generic: 'Vi fikk ikke lagret vurderingene. Prøv igjen.',
+        },
     },
     chat: {
         title: 'Kampchat',
@@ -367,7 +377,10 @@ const nb: Dictionary = {
         empty: 'Ingen meldinger ennå. Si hei!',
         membersOnly: 'Meld deg på kampen for å se og skrive i chatten.',
         delete: 'Slett',
-        errors: { generic: 'Vi fikk ikke sendt meldingen. Prøv igjen.' },
+        errors: {
+            rateLimited: 'Det går litt for fort. Vent noen minutter og prøv igjen.',
+            generic: 'Vi fikk ikke sendt meldingen. Prøv igjen.',
+        },
     },
     player: {
         memberSince: 'Medlem siden {date}',

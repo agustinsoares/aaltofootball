@@ -184,5 +184,10 @@ begin
     insert into public.match_participants (match_id, user_id, status, joined_at)
     select id, v_player, 'waitlisted', now() - interval '2 hours'
     from public.matches where title = 'Lunchtime futsal-style 5s';
+
+    -- Los partidos de ejemplo figuran creados ayer: así no cuentan para el límite de
+    -- "3 partidos cada 5 minutos" de quien los organiza (p. ej. en las pruebas e2e).
+    update public.matches set created_at = now() - interval '1 day'
+    where created_at > now() - interval '1 day';
 end;
 $seed$;
