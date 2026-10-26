@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Alert, buttonStyles, Input, PageHeader } from '@/components/ui';
-import { isLocale, type Locale } from '@/i18n/config';
+import { INTL_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary, interpolate } from '@/i18n/dictionaries';
 import { requireAdmin } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/admin/user
 }
 
 function formatDay(iso: string, locale: Locale) {
-    return new Intl.DateTimeFormat(locale === 'nb' ? 'nb-NO' : 'en-GB', {
+    return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
         day: 'numeric',
         month: 'short',
         year: 'numeric',

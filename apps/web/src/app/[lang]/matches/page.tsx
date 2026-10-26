@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MatchCard from '@/components/MatchCard';
 import { buttonStyles, PageHeader, Select } from '@/components/ui';
-import { isLocale } from '@/i18n/config';
+import { isLocale, localeAlternates } from '@/i18n/config';
 import { getDictionary, interpolate } from '@/i18n/dictionaries';
 import { formatMatchDate, pluralCategory } from '@/lib/format';
 import {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/matches'>)
     return {
         title: dict.matchList.title,
         description: dict.matchList.subtitle,
-        alternates: { canonical: `/${lang}/matches`, languages: { en: '/en/matches', nb: '/nb/matches' } },
+        alternates: { canonical: `/${lang}/matches`, languages: localeAlternates('/matches') },
     };
 }
 
@@ -92,7 +92,7 @@ export default async function MatchesPage({ params, searchParams }: PageProps<'/
 
             <form
                 method="get"
-                className="mt-8 grid gap-4 rounded-2xl bg-surface p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end"
+                className="mt-8 grid gap-4 rounded-2xl bg-surface p-4 sm:grid-cols-2 sm:items-end lg:grid-cols-[repeat(4,minmax(0,1fr))_auto_auto]"
             >
                 {filters.view === 'map' && <input type="hidden" name="view" value="map" />}
                 <label className="text-sm font-semibold">
@@ -138,21 +138,19 @@ export default async function MatchesPage({ params, searchParams }: PageProps<'/
                         ))}
                     </Select>
                 </label>
-                <div className="flex flex-col gap-3">
-                    <label className="flex items-center gap-2 text-sm font-medium">
-                        <input
-                            type="checkbox"
-                            name="open"
-                            value="1"
-                            defaultChecked={filters.onlyOpen}
-                            className="h-4 w-4 accent-primary-strong"
-                        />
-                        {t.onlyOpen}
-                    </label>
-                    <button type="submit" className={buttonStyles.primary}>
-                        {t.apply}
-                    </button>
-                </div>
+                <label className="flex h-[2.875rem] cursor-pointer items-center gap-2.5 rounded-lg border border-black/20 bg-white px-4 text-sm font-medium whitespace-nowrap transition-colors hover:border-black/30 has-checked:border-primary has-checked:bg-primary-soft">
+                    <input
+                        type="checkbox"
+                        name="open"
+                        value="1"
+                        defaultChecked={filters.onlyOpen}
+                        className="h-4 w-4 accent-primary-strong"
+                    />
+                    {t.onlyOpen}
+                </label>
+                <button type="submit" className={`${buttonStyles.primary} h-[2.875rem] whitespace-nowrap`}>
+                    {t.apply}
+                </button>
             </form>
 
             <div className="mt-8 flex items-center justify-between gap-4">

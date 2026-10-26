@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
-import { isLocale, LOCALES, OG_LOCALE } from '@/i18n/config';
+import { isLocale, localeAlternates, LOCALES, OG_LOCALE } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { BRAND_BLUE, SITE_NAME, siteUrl } from '@/lib/site';
 import '../globals.css';
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
         applicationName: SITE_NAME,
         alternates: {
             canonical: `/${lang}`,
-            languages: { en: '/en', nb: '/nb', 'x-default': '/en' },
+            languages: { ...localeAlternates(), 'x-default': '/en' },
         },
         appleWebApp: { capable: true, title: SITE_NAME, statusBarStyle: 'black-translucent' },
         openGraph: {

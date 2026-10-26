@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { Alert, buttonStyles } from '@/components/ui';
-import { INTL_LOCALE, isLocale, type Locale } from '@/i18n/config';
+import { INTL_LOCALE, isLocale, localeAlternates, type Locale } from '@/i18n/config';
 import { getDictionary, interpolate, type Dictionary } from '@/i18n/dictionaries';
 import { getCurrentUser } from '@/lib/auth';
 import { formatMatchDate, formatMatchDateRange, formatPrice, pluralCategory } from '@/lib/format';
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/matches/[i
         description,
         openGraph: { title: match.title, description },
         robots: match.visibility === 'private' ? { index: false } : undefined,
-        alternates: { languages: { en: `/en/matches/${id}`, nb: `/nb/matches/${id}` } },
+        alternates: { languages: localeAlternates(`/matches/${id}`) },
     };
 }
 

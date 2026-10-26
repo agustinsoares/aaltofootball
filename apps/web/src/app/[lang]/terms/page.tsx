@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import LegalPage from '@/components/LegalPage';
 import { LEGAL } from '@/content/legal';
-import { isLocale } from '@/i18n/config';
+import { isLocale, localeAlternates } from '@/i18n/config';
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/terms'>): Promise<Metadata> {
     const { lang } = await params;
     if (!isLocale(lang)) return {};
     return {
         title: LEGAL[lang].terms.title,
-        alternates: { canonical: `/${lang}/terms`, languages: { en: '/en/terms', nb: '/nb/terms' } },
+        alternates: { canonical: `/${lang}/terms`, languages: localeAlternates('/terms') },
     };
 }
 

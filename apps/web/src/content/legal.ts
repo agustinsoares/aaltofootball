@@ -1,6 +1,6 @@
 import type { Locale } from '@/i18n/config';
 
-// Textos legales (privacidad y términos) en inglés y noruego.
+// Textos legales (privacidad y términos) en inglés, noruego y español.
 // Borrador redactado para el RGPD/personopplysningsloven: conviene que lo revise un abogado
 // antes del lanzamiento. {email} se sustituye por NEXT_PUBLIC_CONTACT_EMAIL.
 
@@ -351,9 +351,175 @@ const termsNb: LegalDoc = {
     ],
 };
 
+const privacyEs: LegalDoc = {
+    title: 'Política de privacidad',
+    updated: 'Última actualización: 26 de octubre de 2026',
+    intro: 'Aalto Football ayuda a la gente de Bergen a encontrar y organizar partidos de fútbol amateur. Esta política explica qué datos personales recogemos, para qué, con quién los compartimos y cuáles son tus derechos.',
+    sections: [
+        {
+            heading: 'Quién es el responsable',
+            paragraphs: [
+                'Aalto Football lo gestiona Agustín M. Soares, Bergen (Noruega), que es el responsable del tratamiento. Escríbenos sobre cualquier punto de esta política a {email}.',
+            ],
+        },
+        {
+            heading: 'Qué datos recogemos',
+            list: [
+                'Cuenta: tu email, tu nombre, tu contraseña (guardada cifrada por nuestro proveedor de inicio de sesión) y, si entras con Google, el nombre y el email que Google nos comparte.',
+                'Perfil: nivel, posición preferida e idioma.',
+                'Actividad: los partidos que organizas o a los que te apuntas, tu puesto en la lista de espera, equipos, resultados, asistencia (si fuiste o no), las valoraciones que das y recibes, y los mensajes del chat de tus partidos.',
+                'Datos técnicos: dirección IP, navegador y dispositivo, que usamos para que el servicio funcione y sea seguro. Nuestros proveedores guardan estos registros durante un tiempo limitado.',
+                'Estadísticas de la web: páginas vistas, país, tipo de dispositivo y sitio de procedencia, de forma anónima y sin cookies, medidos con Vercel Web Analytics.',
+            ],
+        },
+        {
+            heading: 'Para qué los usamos (base legal)',
+            list: [
+                'Para darte el servicio en el que te registras: tu cuenta, partidos, listas de espera, equipos, resultados, chat y emails de recordatorio antes del partido (ejecución de un contrato, art. 6.1.b del RGPD).',
+                'Para mantener el servicio seguro, evitar spam y abusos, y entender de forma agregada cómo se usa la web (interés legítimo, art. 6.1.f).',
+                'Para cumplir obligaciones legales cuando corresponda (art. 6.1.c).',
+            ],
+            paragraphs: ['No vendemos tus datos, no mostramos anuncios ni usamos tus datos para marketing.'],
+        },
+        {
+            heading: 'Quién puede ver tu información',
+            list: [
+                'Los demás usuarios con sesión iniciada ven tu nombre, nivel, posición preferida, los partidos que juegas y tus estadísticas públicas (partidos jugados, asistencia y valoración media). Los visitantes sin sesión ven los partidos, cuántas plazas quedan y, en la página de inicio, los nombres de nuestros miembros (solo el nombre, nada más).',
+                'Las valoraciones individuales son privadas: los jugadores solo ven la media.',
+                'Los mensajes del chat los ven el organizador y los jugadores de ese partido.',
+                'Los administradores del sitio pueden ver los datos de las cuentas (incluido el email) para gestionar y moderar el servicio.',
+            ],
+        },
+        {
+            heading: 'Proveedores',
+            paragraphs: [
+                'Usamos estos proveedores para que Aalto Football funcione. Tratan los datos por encargo nuestro, con contratos de encargo del tratamiento:',
+            ],
+            list: [
+                'Supabase (base de datos e inicio de sesión), con los datos guardados en la UE (Irlanda).',
+                'Vercel (alojamiento y estadísticas de la web), con servidores en la UE (Irlanda) y una red global.',
+                'Resend (envío de emails).',
+                'OpenStreetMap (imágenes de los mapas; tu navegador las carga directamente de OpenStreetMap).',
+            ],
+        },
+        {
+            heading: 'Transferencias fuera del EEE',
+            paragraphs: [
+                'Algunos proveedores tienen sede en Estados Unidos. Cuando los datos salen del EEE, están protegidos por las cláusulas contractuales tipo de la UE o por el Marco de Privacidad de Datos UE–EE. UU.',
+            ],
+        },
+        {
+            heading: 'Cuánto tiempo los guardamos',
+            paragraphs: [
+                'Guardamos tus datos mientras tengas una cuenta. Si borras tu cuenta, se borran al momento tu perfil, tus valoraciones, tus mensajes y tus inscripciones, y también los partidos que organizas. Las copias de seguridad y los registros de los proveedores se borran en su ciclo normal (hasta 90 días).',
+            ],
+        },
+        {
+            heading: 'Cookies',
+            paragraphs: [
+                'Solo usamos las cookies necesarias para que la web funcione: las de la sesión de Supabase y una que recuerda tu idioma. Las estadísticas de la web no usan cookies. La app instalable (PWA) guarda copias de las páginas públicas en tu dispositivo para que la web funcione sin conexión.',
+            ],
+        },
+        {
+            heading: 'Tus derechos',
+            list: [
+                'Acceso y portabilidad: pídenos una copia de tus datos.',
+                'Rectificación: edita tu perfil cuando quieras.',
+                'Supresión: borra tu cuenta tú mismo desde tu perfil, o pídenoslo.',
+                'Oposición y limitación: oponte a los tratamientos basados en el interés legítimo.',
+                'Reclamación: puedes reclamar ante la autoridad noruega de protección de datos (Datatilsynet, datatilsynet.no).',
+            ],
+            paragraphs: ['Escribe a {email} para ejercer tus derechos. Respondemos en un plazo de 30 días.'],
+        },
+        {
+            heading: 'Menores',
+            paragraphs: ['Tienes que tener al menos 16 años para crear una cuenta.'],
+        },
+        {
+            heading: 'Cambios',
+            paragraphs: [
+                'Si cambiamos esta política actualizaremos la fecha de arriba y avisaremos de los cambios importantes a los usuarios con sesión iniciada.',
+            ],
+        },
+    ],
+};
+
+const termsEs: LegalDoc = {
+    title: 'Términos de uso',
+    updated: 'Última actualización: 26 de octubre de 2026',
+    intro: 'Estos términos se aplican cuando usas Aalto Football. Al crear una cuenta los aceptas. Lee también nuestra política de privacidad.',
+    sections: [
+        {
+            heading: 'El servicio',
+            paragraphs: [
+                'Aalto Football es una plataforma gratuita donde los organizadores publican partidos de fútbol amateur y los jugadores se apuntan. Nosotros no organizamos los partidos, no reservamos canchas ni cobramos pagos: el organizador es responsable del partido, y cualquier pago se hace directamente al organizador o en la cancha.',
+            ],
+        },
+        {
+            heading: 'Tu cuenta',
+            list: [
+                'Tienes que tener al menos 16 años.',
+                'Usa tu nombre real y cuida tus datos de acceso. Eres responsable de lo que pase en tu cuenta.',
+                'Una persona, una cuenta.',
+            ],
+        },
+        {
+            heading: 'Organizadores',
+            list: [
+                'Publica solo partidos reales, con la hora, el lugar, el nivel y el precio correctos.',
+                'Asegúrate de tener derecho a usar la cancha.',
+                'Cancela el partido en la app lo antes posible si no se va a jugar.',
+            ],
+        },
+        {
+            heading: 'Jugadores',
+            list: [
+                'Apúntate solo a partidos a los que piensas ir, y bájate en la app en cuanto sepas que no puedes, para que juegue alguien de la lista de espera.',
+                'Los organizadores pueden registrar la asistencia, y las ausencias aparecen en tus estadísticas.',
+            ],
+        },
+        {
+            heading: 'Juego limpio',
+            paragraphs: ['No puedes:'],
+            list: [
+                'acosar, amenazar o discriminar a nadie, dentro o fuera de la cancha, también en el chat;',
+                'publicar contenido ilegal, ofensivo o engañoso, spam o publicidad;',
+                'dar valoraciones deshonestas o valorar a jugadores con los que no jugaste;',
+                'intentar acceder a datos de otros usuarios, sobrecargar o atacar el servicio, o usar bots para extraer información.',
+            ],
+        },
+        {
+            heading: 'Tu contenido',
+            paragraphs: [
+                'Conservas los derechos sobre lo que escribes (por ejemplo, descripciones de partidos y mensajes del chat) y nos das permiso para mostrarlo en el servicio. Podemos retirar contenido y suspender o borrar cuentas que incumplan estos términos.',
+            ],
+        },
+        {
+            heading: 'Seguridad y responsabilidad',
+            paragraphs: [
+                'El fútbol implica riesgo de lesiones. Participas en los partidos bajo tu propia responsabilidad y te encargas de tu salud y tu seguro. No somos responsables de lo que pase en los partidos, del estado de las canchas ni de los conflictos entre usuarios.',
+                'Hacemos lo posible para que el servicio esté disponible y sea correcto, pero se ofrece "tal cual". En la medida en que lo permita la ley noruega, no respondemos de pérdidas indirectas. Nada en estos términos limita tus derechos como consumidor.',
+            ],
+        },
+        {
+            heading: 'Dejar de usar el servicio',
+            paragraphs: [
+                'Puedes borrar tu cuenta cuando quieras desde tu perfil. Podemos cerrar el servicio o tu cuenta con un aviso razonable, o de inmediato si incumples gravemente estos términos.',
+            ],
+        },
+        {
+            heading: 'Cambios y ley aplicable',
+            paragraphs: [
+                'Podemos actualizar estos términos y te avisaremos de los cambios importantes antes de que se apliquen. Se aplica la ley noruega. Dudas o reclamaciones: {email}. Como consumidor también puedes contactar con Forbrukerrådet.',
+            ],
+        },
+    ],
+};
+
 export const LEGAL: Record<Locale, { privacy: LegalDoc; terms: LegalDoc }> = {
     en: { privacy: privacyEn, terms: termsEn },
     nb: { privacy: privacyNb, terms: termsNb },
+    es: { privacy: privacyEs, terms: termsEs },
 };
 
 /** Email de contacto para temas legales y de privacidad (NEXT_PUBLIC_CONTACT_EMAIL, obligatorio en producción). */

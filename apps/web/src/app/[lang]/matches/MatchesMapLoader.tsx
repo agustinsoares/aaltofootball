@@ -6,7 +6,11 @@ import type { ComponentProps } from 'react';
 import BallLoader from '@/components/BallLoader';
 import type MatchesMapType from './MatchesMap';
 
-const LOADING_LABELS: Record<string, string> = { en: 'Loading map…', nb: 'Laster kart…' };
+const LOADING_LABELS: Record<string, string> = {
+    en: 'Loading map…',
+    nb: 'Laster kart…',
+    es: 'Cargando mapa…',
+};
 
 function MapLoading() {
     const { lang } = useParams<{ lang: string }>();
