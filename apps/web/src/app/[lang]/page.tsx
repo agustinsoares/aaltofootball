@@ -4,16 +4,7 @@ import type { ComponentType, SVGProps } from 'react';
 import MatchCard from '@/components/MatchCard';
 import MemberMarquee from '@/components/MemberMarquee';
 import { Alert } from '@/components/ui';
-import {
-    BallIcon,
-    CalendarIcon,
-    ClockIcon,
-    SearchIcon,
-    ShareIcon,
-    StarIcon,
-    UserPlusIcon,
-    UsersIcon,
-} from '@/components/icons';
+import { CalendarIcon, ClockIcon, ShareIcon, StarIcon, UsersIcon } from '@/components/icons';
 import { getDictionary } from '@/i18n/dictionaries';
 import { isLocale } from '@/i18n/config';
 import { getUpcomingMatches } from '@/lib/matches';
@@ -26,7 +17,6 @@ export const revalidate = 300;
 
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
 
-const STEP_ICONS: IconType[] = [SearchIcon, UserPlusIcon, BallIcon];
 const HOST_ICONS: IconType[] = [CalendarIcon, UsersIcon, ShareIcon, StarIcon];
 
 function FeatureIcon({ icon: IconComponent }: { icon: IconType }) {
@@ -70,11 +60,11 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                 <div className="mx-auto max-w-6xl px-4 py-24 sm:py-36">
                     <div className="hero-intro max-w-xl text-white">
                         <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold tracking-[0.2em] text-white/90 uppercase backdrop-blur-sm">
-                            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+                            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-white/70" />
                             {dict.hero.eyebrow}
                         </p>
                         <h1 className="mt-6 text-4xl leading-tight sm:text-6xl sm:leading-[1.05]">
-                            <span className="underline decoration-accent decoration-4 underline-offset-8">
+                            <span className="underline decoration-white/60 decoration-2 underline-offset-8">
                                 {dict.hero.titleStart}
                             </span>
                             <span className="block text-[0.82em]">{dict.hero.titleEnd}</span>
@@ -85,7 +75,7 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                         <div className="mt-10 flex flex-wrap gap-3">
                             <Link
                                 href={`/${lang}/matches`}
-                                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-white shadow-[0_10px_30px_-10px_rgb(186_12_47/0.7)] transition-colors hover:bg-accent-strong"
+                                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent-strong"
                             >
                                 {dict.hero.ctaFind}
                                 <span
@@ -113,19 +103,16 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                 <div className="mx-auto max-w-6xl px-4">
                     <div className="reveal max-w-2xl">
                         <h2 className="text-3xl font-semibold sm:text-4xl">{dict.howItWorks.title}</h2>
-                        <p className="mt-3 text-lg text-ink/60">{dict.howItWorks.subtitle}</p>
+                        <p className="mt-3 text-lg text-ink/70">{dict.howItWorks.subtitle}</p>
                     </div>
                     <ol className="reveal-children mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
                         {dict.howItWorks.steps.map((step, index) => (
                             <li key={step.title} className="border-t border-black/10 pt-6">
-                                <div className="flex items-center justify-between">
-                                    <span className="font-display text-sm text-accent">
-                                        {String(index + 1).padStart(2, '0')}
-                                    </span>
-                                    <FeatureIcon icon={STEP_ICONS[index]} />
-                                </div>
-                                <h3 className="mt-5 text-lg font-semibold">{step.title}</h3>
-                                <p className="mt-2 leading-relaxed text-ink/60">{step.text}</p>
+                                <span className="font-display text-sm text-primary">
+                                    {String(index + 1).padStart(2, '0')}
+                                </span>
+                                <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
+                                <p className="mt-2 leading-relaxed text-ink/70">{step.text}</p>
                             </li>
                         ))}
                     </ol>
@@ -138,10 +125,10 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                     <div className="reveal flex flex-wrap items-end justify-between gap-4">
                         <div>
                             <h2 className="text-3xl font-semibold sm:text-4xl">{dict.matches.title}</h2>
-                            {isExample && <p className="mt-3 text-lg text-ink/60">{dict.matches.subtitle}</p>}
+                            {isExample && <p className="mt-3 text-lg text-ink/70">{dict.matches.subtitle}</p>}
                         </div>
                         {isExample && (
-                            <p className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent-strong">
+                            <p className="inline-flex items-center gap-2 rounded-full bg-black/5 px-3 py-1 text-sm font-medium text-ink/75">
                                 <ClockIcon className="h-4 w-4" />
                                 {dict.matches.examplesBadge}
                             </p>
@@ -170,14 +157,14 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                 <div className="mx-auto max-w-6xl px-4">
                     <div className="reveal max-w-2xl">
                         <h2 className="text-3xl font-semibold sm:text-4xl">{dict.hosts.title}</h2>
-                        <p className="mt-3 text-lg text-ink/60">{dict.hosts.subtitle}</p>
+                        <p className="mt-3 text-lg text-ink/70">{dict.hosts.subtitle}</p>
                     </div>
                     <ul className="reveal-children mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
                         {dict.hosts.features.map((feature, index) => (
                             <li key={feature.title}>
                                 <FeatureIcon icon={HOST_ICONS[index]} />
                                 <h3 className="mt-5 font-semibold">{feature.title}</h3>
-                                <p className="mt-2 text-sm leading-relaxed text-ink/60">{feature.text}</p>
+                                <p className="mt-2 text-sm leading-relaxed text-ink/70">{feature.text}</p>
                             </li>
                         ))}
                     </ul>
@@ -190,7 +177,7 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[la
                         <p className="mx-auto mt-4 max-w-xl text-lg text-white/75">{dict.hosts.bannerText}</p>
                         <Link
                             href={`/${lang}/matches/new`}
-                            className="mt-8 inline-block rounded-full bg-accent px-7 py-3 font-semibold text-white shadow-[0_10px_30px_-10px_rgb(186_12_47/0.8)] transition-colors hover:bg-accent-strong"
+                            className="mt-8 inline-block rounded-full bg-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-accent-strong"
                         >
                             {dict.hosts.bannerCta}
                         </Link>

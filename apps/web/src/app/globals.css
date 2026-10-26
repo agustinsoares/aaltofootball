@@ -280,9 +280,9 @@
         height: 3.5rem;
         border-radius: 1.25rem;
         transform: translateY(0.75rem);
-        background: rgb(0 32 91 / 0.92);
-        backdrop-filter: saturate(160%) blur(14px);
-        -webkit-backdrop-filter: saturate(160%) blur(14px);
+        background: rgb(0 32 91 / 0.97);
+        backdrop-filter: saturate(160%) blur(20px);
+        -webkit-backdrop-filter: saturate(160%) blur(20px);
         box-shadow:
             0 0 0 1px rgb(255 255 255 / 0.08) inset,
             0 12px 32px -12px rgb(0 32 91 / 0.45);

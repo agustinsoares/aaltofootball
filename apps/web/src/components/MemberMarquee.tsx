@@ -24,7 +24,7 @@ export default function MemberMarquee({ title, names }: { title: string; names: 
 
     return (
         <section aria-label={title} className="border-y border-black/5 py-10 sm:py-12">
-            <p className="text-center text-xs font-semibold tracking-[0.3em] text-ink/45 uppercase">
+            <p className="text-center text-xs font-semibold tracking-[0.3em] text-ink/65 uppercase">
                 {title}
             </p>
             <div
