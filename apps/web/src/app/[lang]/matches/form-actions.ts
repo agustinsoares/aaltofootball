@@ -7,6 +7,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { addDays, osloWallTimeToDate } from '@/lib/time';
+import { FREE_MATCHES_ONLY } from '@/lib/pricing';
 
 export type MatchFormErrorKey = keyof Dictionary['matchForm']['errors'];
 export type MatchFormField =
@@ -89,7 +90,7 @@ function toRow(data: ParsedMatch) {
         skill_level: data.level,
         gender: data.gender,
         visibility: data.visibility,
-        price_per_player: data.price,
+        price_per_player: FREE_MATCHES_ONLY ? null : data.price,
         description: data.description || null,
     };
 }

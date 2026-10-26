@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Locale } from '@/i18n/config';
 import { interpolate, type Dictionary } from '@/i18n/dictionaries';
 import { formatMatchDate, formatPrice, pluralCategory } from '@/lib/format';
+import { FREE_MATCHES_ONLY } from '@/lib/pricing';
 
 export type SkillLevel = 'beginner' | 'intermediate' | 'advanced';
 export type MatchFormat = '5v5' | '7v7' | '9v9' | '11v11';
@@ -88,13 +89,20 @@ export default function MatchCard({ match, locale, dict, badge, badgeTone = 'bra
                     <dt className="text-ink/60">{t.level}</dt>
                     <dd className="font-medium">{dict.levels[level]}</dd>
                 </div>
-                {pricePerPlayer != null && (
+                {FREE_MATCHES_ONLY ? (
                     <div>
                         <dt className="text-ink/60">{t.price}</dt>
-                        <dd className="font-medium">
-                            {formatPrice(pricePerPlayer, locale)} {t.perPlayer}
-                        </dd>
+                        <dd className="font-medium text-success-strong">{dict.match.free}</dd>
                     </div>
+                ) : (
+                    pricePerPlayer != null && (
+                        <div>
+                            <dt className="text-ink/60">{t.price}</dt>
+                            <dd className="font-medium">
+                                {formatPrice(pricePerPlayer, locale)} {t.perPlayer}
+                            </dd>
+                        </div>
+                    )
                 )}
             </dl>
 

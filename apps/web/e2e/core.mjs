@@ -107,7 +107,7 @@ const check = (cond, msg) => {
     await p.fill('#date', d);
     await p.fill('#time', '19:30');
     await p.selectOption('#format', '7v7');
-    await p.fill('#price', '90');
+    check((await p.locator('#price').count()) === 0, 'el formulario no pide precio (partidos gratis)');
     await p.fill('#description', 'Bring a dark shirt.');
     await p.screenshot({ path: out('03-new-match-form'), fullPage: true });
     await p.click('button:has-text("Create match")');
@@ -116,12 +116,7 @@ const check = (cond, msg) => {
     check(await p.isVisible('h1:has-text("E2E Friday 7s")'), 'redirige al partido creado');
     check((await countText()).includes('1/14'), 'el host ocupa la primera plaza (1/14)');
     check(await p.isVisible('text=19:30–20:30'), 'hora 19:30–20:30 en hora de Bergen');
-    check(
-        (await p.isVisible('text=kr 90')) ||
-            (await p.isVisible('text=NOK 90')) ||
-            (await p.textContent('dl')).includes('90'),
-        'precio 90 NOK',
-    );
+    check((await p.textContent('dl')).includes('Free'), 'inscripción gratis');
 
     log('7. Editar partido');
     await p.click('text=Edit match');
