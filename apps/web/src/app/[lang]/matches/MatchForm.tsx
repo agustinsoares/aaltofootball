@@ -7,6 +7,7 @@ import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { MatchFormat, SkillLevel, Venue } from '@/lib/match-data';
 import { createMatchAction, updateMatchAction, type MatchFormState } from './form-actions';
+import { FREE_MATCHES_ONLY } from '@/lib/pricing';
 
 export interface MatchFormValues {
     title: string;
@@ -184,18 +185,20 @@ export default function MatchForm({
                         ))}
                     </Select>
                 </Field>
-                <Field label={t.price} htmlFor="price" hint={t.priceHint} error={fe('price')}>
-                    <Input
-                        id="price"
-                        name="price"
-                        type="number"
-                        inputMode="decimal"
-                        min={0}
-                        step={10}
-                        defaultValue={v('price')}
-                        aria-invalid={!!fe('price')}
-                    />
-                </Field>
+                {!FREE_MATCHES_ONLY && (
+                    <Field label={t.price} htmlFor="price" hint={t.priceHint} error={fe('price')}>
+                        <Input
+                            id="price"
+                            name="price"
+                            type="number"
+                            inputMode="decimal"
+                            min={0}
+                            step={10}
+                            defaultValue={v('price')}
+                            aria-invalid={!!fe('price')}
+                        />
+                    </Field>
+                )}
             </div>
 
             <fieldset>

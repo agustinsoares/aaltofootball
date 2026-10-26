@@ -23,6 +23,7 @@ import RatingsForm from './RatingsForm';
 import ResultForm from './ResultForm';
 import ShareButtons from './ShareButtons';
 import TeamsEditor from './TeamsEditor';
+import { FREE_MATCHES_ONLY } from '@/lib/pricing';
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/matches/[id]'>): Promise<Metadata> {
     const { lang, id } = await params;
@@ -202,7 +203,10 @@ export default async function MatchPage({ params }: PageProps<'/[lang]/matches/[
         { label: t.players, value: t.genders[match.gender] },
         {
             label: t.price,
-            value: match.price_per_player != null ? formatPrice(match.price_per_player, lang) : t.free,
+            value:
+                !FREE_MATCHES_ONLY && match.price_per_player != null
+                    ? formatPrice(match.price_per_player, lang)
+                    : t.free,
         },
     ];
 
@@ -251,7 +255,9 @@ export default async function MatchPage({ params }: PageProps<'/[lang]/matches/[
                     {match.description && (
                         <p className="whitespace-pre-line text-ink/85">{match.description}</p>
                     )}
-                    {match.price_per_player != null && <p className="text-sm text-ink/70">{t.payAtPitch}</p>}
+                    {!FREE_MATCHES_ONLY && match.price_per_player != null && (
+                        <p className="text-sm text-ink/70">{t.payAtPitch}</p>
+                    )}
 
                     <section aria-labelledby="players-title">
                         <h2 id="players-title" className="text-xl font-bold">

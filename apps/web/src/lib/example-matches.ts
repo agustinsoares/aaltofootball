@@ -20,7 +20,7 @@ export function exampleMatches(): MatchSummary[] {
             level: 'intermediate',
             spotsTotal: 14,
             spotsTaken: 12,
-            pricePerPlayer: 80,
+            pricePerPlayer: null,
         },
         {
             id: 'example-2',
@@ -31,7 +31,7 @@ export function exampleMatches(): MatchSummary[] {
             level: 'beginner',
             spotsTotal: 10,
             spotsTaken: 5,
-            pricePerPlayer: 100,
+            pricePerPlayer: null,
         },
         {
             id: 'example-3',
@@ -42,7 +42,7 @@ export function exampleMatches(): MatchSummary[] {
             level: 'advanced',
             spotsTotal: 22,
             spotsTaken: 22,
-            pricePerPlayer: 60,
+            pricePerPlayer: null,
         },
     ];
 }
