@@ -21,7 +21,7 @@ export const LEGAL_UPDATED = '2026-10-06';
 
 const privacyEn: LegalDoc = {
     title: 'Privacy policy',
-    updated: 'Last updated: 6 October 2026',
+    updated: 'Last updated: 26 October 2026',
     intro: 'Aalto Football helps people in Bergen find and organise pick-up football matches. This policy explains what personal data we collect, why, who we share it with and what your rights are.',
     sections: [
         {
@@ -52,7 +52,7 @@ const privacyEn: LegalDoc = {
         {
             heading: 'Who can see your information',
             list: [
-                'Other signed-in users can see your name, level, preferred position, the matches you play and your public stats (matches played, attendance and average rating). Visitors who are not signed in only see matches and how many spots are left.',
+                'Other signed-in users can see your name, level, preferred position, the matches you play and your public stats (matches played, attendance and average rating). Visitors who are not signed in see matches, how many spots are left and, on the home page, the names of our members (name only, nothing else).',
                 'Individual ratings are private: players only see averages.',
                 'Chat messages are visible to the host and players of that match.',
                 'Site admins can see account details (including email) to run and moderate the service.',
@@ -114,7 +114,7 @@ const privacyEn: LegalDoc = {
 
 const privacyNb: LegalDoc = {
     title: 'Personvernerklæring',
-    updated: 'Sist oppdatert: 6. oktober 2026',
+    updated: 'Sist oppdatert: 26. oktober 2026',
     intro: 'Aalto Football hjelper folk i Bergen med å finne og arrangere fotballkamper. Denne erklæringen forklarer hvilke personopplysninger vi samler inn, hvorfor, hvem vi deler dem med og hvilke rettigheter du har.',
     sections: [
         {
@@ -147,7 +147,7 @@ const privacyNb: LegalDoc = {
         {
             heading: 'Hvem kan se opplysningene dine',
             list: [
-                'Andre innloggede brukere ser navnet ditt, nivå, foretrukket posisjon, kampene du spiller og den offentlige statistikken din (spilte kamper, oppmøte og gjennomsnittlig vurdering). Besøkende som ikke er logget inn ser bare kampene og hvor mange plasser som er ledige.',
+                'Andre innloggede brukere ser navnet ditt, nivå, foretrukket posisjon, kampene du spiller og den offentlige statistikken din (spilte kamper, oppmøte og gjennomsnittlig vurdering). Besøkende som ikke er logget inn ser kampene, hvor mange plasser som er ledige og, på forsiden, navnene på medlemmene våre (bare navnet, ingenting annet).',
                 'Enkeltvurderinger er private: spillere ser bare gjennomsnitt.',
                 'Chatmeldinger er synlige for arrangøren og spillerne i kampen.',
                 'Administratorer ser kontoopplysninger (også e-post) for å drive og moderere tjenesten.',

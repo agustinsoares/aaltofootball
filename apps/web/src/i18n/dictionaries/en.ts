@@ -14,6 +14,7 @@ const en = {
         languageLabel: 'Language',
     },
     hero: {
+        eyebrow: 'Pick-up football · Bergen',
         titleStart: 'Find a game.',
         titleEnd: 'Or host your own.',
         subtitle:
@@ -21,11 +22,8 @@ const en = {
         ctaFind: 'Find matches',
         ctaHost: 'Host a match',
     },
-    freeKick: {
-        title: 'Every match starts with a kick',
-        caption: 'Scroll to take the free kick.',
-        goal: 'GOAL!',
-        sceneLabel: 'Animation: a player curls a free kick over the wall into the top corner.',
+    members: {
+        title: 'Already playing with us',
     },
     howItWorks: {
         title: 'How it works',
