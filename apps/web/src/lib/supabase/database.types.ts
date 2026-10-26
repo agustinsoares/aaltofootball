@@ -471,7 +471,7 @@ export type Database = {
             };
         };
         Enums: {
-            app_locale: 'en' | 'nb';
+            app_locale: 'en' | 'nb' | 'es';
             match_format: '5v5' | '7v7' | '9v9' | '11v11';
             match_gender: 'mixed' | 'men' | 'women';
             match_status: 'open' | 'full' | 'cancelled' | 'completed';
@@ -591,7 +591,7 @@ export type CompositeTypes<
 export const Constants = {
     public: {
         Enums: {
-            app_locale: ['en', 'nb'],
+            app_locale: ['en', 'nb', 'es'],
             match_format: ['5v5', '7v7', '9v9', '11v11'],
             match_gender: ['mixed', 'men', 'women'],
             match_status: ['open', 'full', 'cancelled', 'completed'],

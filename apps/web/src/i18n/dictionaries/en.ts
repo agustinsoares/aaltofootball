@@ -212,7 +212,7 @@ const en = {
         anyLevel: 'Any level',
         format: 'Format',
         anyFormat: 'Any format',
-        onlyOpen: 'Only matches with free spots',
+        onlyOpen: 'Free spots',
         apply: 'Show matches',
         reset: 'Clear filters',
         count: { one: '{count} match', other: '{count} matches' },

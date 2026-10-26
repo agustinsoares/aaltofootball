@@ -215,7 +215,7 @@ const nb: Dictionary = {
         anyLevel: 'Alle nivåer',
         format: 'Format',
         anyFormat: 'Alle formater',
-        onlyOpen: 'Bare kamper med ledige plasser',
+        onlyOpen: 'Ledige plasser',
         apply: 'Vis kamper',
         reset: 'Nullstill filtre',
         count: { one: '{count} kamp', other: '{count} kamper' },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { Alert, buttonStyles, PageHeader } from '@/components/ui';
-import { isLocale, type Locale } from '@/i18n/config';
+import { INTL_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary, interpolate, type Dictionary } from '@/i18n/dictionaries';
 import { requireAdmin } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -30,12 +30,12 @@ interface Stats {
     weekly: { week: string; users: number; matches: number }[];
 }
 
-const numberFormat = (locale: Locale) => new Intl.NumberFormat(locale === 'nb' ? 'nb-NO' : 'en-GB');
+const numberFormat = (locale: Locale) => new Intl.NumberFormat(INTL_LOCALE[locale]);
 
 function shortDate(iso: string, locale: Locale) {
     const date = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? new Date(`${iso}T12:00:00Z`) : new Date(iso);
     if (Number.isNaN(date.getTime())) return iso;
-    return new Intl.DateTimeFormat(locale === 'nb' ? 'nb-NO' : 'en-GB', {
+    return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
         day: 'numeric',
         month: 'short',
         timeZone: 'Europe/Oslo',

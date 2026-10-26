@@ -71,7 +71,7 @@ export function Alert({ tone, children }: { tone: 'error' | 'success' | 'info'; 
 }
 
 export function Select(props: ComponentProps<'select'>) {
-    return <select {...props} className={`${inputStyles} ${props.className ?? ''}`} />;
+    return <select {...props} className={`${inputStyles} select-chevron ${props.className ?? ''}`} />;
 }
 
 export function Input(props: ComponentProps<'input'>) {
