@@ -84,7 +84,7 @@ export default function UserMenu({ locale, dict }: { locale: Locale; dict: Dicti
         return (
             <Link
                 href={loginHref}
-                className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-accent-strong sm:px-4"
+                className="rounded-full bg-accent px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-accent-strong sm:px-4"
             >
                 {dict.signIn}
             </Link>

@@ -17,7 +17,7 @@
     /* Tinta: texto principal. */
     --color-ink: #1a2233;
     /* Bruma de Bergen: fondos secundarios y tarjetas. */
-    --color-surface: #f3f5f8;
+    --color-surface: #f5f6f8;
     /* Verde césped: confirmaciones ("You're in!"). */
     --color-success: #1e8e5a;
     --color-success-strong: #166b44;
@@ -34,6 +34,8 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+        /* La cabecera flotante tapa ~76px: las anclas (#how-it-works…) quedan por debajo. */
+        scroll-padding-top: 5.5rem;
     }
 
     body {
@@ -42,6 +44,11 @@
 
     h1 {
         @apply font-display;
+    }
+
+    h2 {
+        @apply tracking-tight;
+        text-wrap: balance;
     }
 
     :focus-visible {
@@ -132,11 +139,13 @@
 @keyframes fade-up {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(16px);
+        filter: blur(6px);
     }
     to {
         opacity: 1;
         transform: none;
+        filter: none;
     }
 }
 
@@ -178,15 +187,19 @@
 
 @layer components {
     .hero-intro > * {
-        animation: fade-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        animation: fade-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .hero-intro > :nth-child(2) {
-        animation-delay: 150ms;
+        animation-delay: 120ms;
     }
 
     .hero-intro > :nth-child(3) {
-        animation-delay: 300ms;
+        animation-delay: 240ms;
+    }
+
+    .hero-intro > :nth-child(4) {
+        animation-delay: 360ms;
     }
 
     @supports (animation-timeline: view()) {
@@ -194,7 +207,7 @@
         .reveal-children > * {
             animation: fade-up linear both;
             animation-timeline: view();
-            animation-range: entry 0% entry 70%;
+            animation-range: entry 0% entry 55%;
         }
     }
 
@@ -227,6 +240,89 @@
 
         .ball-spin {
             animation-duration: 4s;
+        }
+    }
+}
+
+/*
+ * Cabecera flotante: arriba ocupa todo el ancho; al scrollear (data-floating) la barra se
+ * despega de los costados, se redondea y queda flotando con un poco de transparencia.
+ * El <header> mide siempre 4rem para que el contenido no salte.
+ */
+@layer components {
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        height: 4rem;
+        color: #fff;
+    }
+
+    .site-header-bar {
+        --float-ease: cubic-bezier(0.22, 1, 0.36, 1);
+        margin-inline: auto;
+        height: 4rem;
+        width: 100%;
+        border-radius: 0;
+        background: var(--color-primary-strong);
+        box-shadow: 0 0 0 0 rgb(0 32 91 / 0);
+        transition:
+            width 600ms var(--float-ease),
+            height 600ms var(--float-ease),
+            border-radius 600ms var(--float-ease),
+            transform 600ms var(--float-ease),
+            background-color 400ms ease,
+            box-shadow 600ms var(--float-ease);
+    }
+
+    .site-header[data-floating] .site-header-bar {
+        width: min(74rem, calc(100% - 1.5rem));
+        height: 3.5rem;
+        border-radius: 1.25rem;
+        transform: translateY(0.75rem);
+        background: rgb(0 32 91 / 0.97);
+        backdrop-filter: saturate(160%) blur(20px);
+        -webkit-backdrop-filter: saturate(160%) blur(20px);
+        box-shadow:
+            0 0 0 1px rgb(255 255 255 / 0.08) inset,
+            0 12px 32px -12px rgb(0 32 91 / 0.45);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .site-header-bar {
+            transition: none;
+        }
+    }
+}
+
+/*
+ * Cinta de miembros: los nombres se desplazan sin fin (la lista va duplicada y se mueve
+ * la mitad de su ancho). Se detiene al pasar el mouse; con "reducir movimiento" queda quieta.
+ */
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@layer components {
+    .marquee {
+        mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    }
+
+    .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee var(--marquee-duration, 60s) linear infinite;
+    }
+
+    .marquee:hover .marquee-track {
+        animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+            animation: none;
         }
     }
 }

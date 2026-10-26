@@ -4,10 +4,10 @@ import type { ComponentProps, ReactNode } from 'react';
 
 export const buttonStyles = {
     primary:
-        'inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 font-semibold text-white transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-60',
+        'inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-semibold text-white transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-60',
     secondary:
-        'inline-flex items-center justify-center gap-2 rounded-lg border border-black/15 bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-60',
-    danger: 'inline-flex items-center justify-center gap-2 rounded-lg border border-accent-strong/40 bg-white px-5 py-2.5 font-semibold text-accent-strong transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-60',
+        'inline-flex items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-60',
+    danger: 'inline-flex items-center justify-center gap-2 rounded-full border border-accent-strong/40 bg-white px-5 py-2.5 font-semibold text-accent-strong transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-60',
     link: 'font-semibold text-primary-strong underline-offset-2 hover:underline',
 };
 

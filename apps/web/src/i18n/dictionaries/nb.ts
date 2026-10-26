@@ -17,6 +17,7 @@ const nb: Dictionary = {
         languageLabel: 'Språk',
     },
     hero: {
+        eyebrow: 'Løkkefotball · Bergen',
         titleStart: 'Finn en kamp.',
         titleEnd: 'Eller arranger din egen.',
         subtitle:
@@ -24,11 +25,8 @@ const nb: Dictionary = {
         ctaFind: 'Finn kamper',
         ctaHost: 'Arranger en kamp',
     },
-    freeKick: {
-        title: 'Hver kamp starter med et spark',
-        caption: 'Scroll for å ta frisparket.',
-        goal: 'MÅL!',
-        sceneLabel: 'Animasjon: en spiller skrur et frispark over muren og opp i krysset.',
+    members: {
+        title: 'Spiller allerede med oss',
     },
     howItWorks: {
         title: 'Slik fungerer det',

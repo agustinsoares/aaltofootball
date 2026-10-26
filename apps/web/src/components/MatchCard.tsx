@@ -53,10 +53,10 @@ export default function MatchCard({ match, locale, dict, badge, badgeTone = 'bra
 
     const card = (
         <article
-            className={`flex h-full flex-col rounded-xl border border-black/5 bg-white p-5 shadow-sm transition-[box-shadow,translate] duration-300 ${
+            className={`flex h-full flex-col rounded-2xl border border-black/[0.07] bg-white p-5 transition-[box-shadow,translate,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 isExample
                     ? ''
-                    : 'group-hover:-translate-y-1 group-hover:shadow-md group-focus-visible:shadow-md motion-reduce:group-hover:translate-y-0'
+                    : 'group-hover:-translate-y-0.5 group-hover:border-black/10 group-hover:shadow-[0_16px_40px_-20px_rgb(0_32_91/0.35)] group-focus-visible:shadow-[0_16px_40px_-20px_rgb(0_32_91/0.35)] motion-reduce:group-hover:translate-y-0'
             } ${isCancelled ? 'opacity-70' : ''}`}
         >
             <div className="flex items-start justify-between gap-3">
