@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
+import { isRateLimited } from '@/lib/rate-limit-errors';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
 export type JoinErrorKey = keyof Dictionary['match']['errors'];
@@ -23,6 +24,7 @@ function read(formData: FormData): { locale: Locale; matchId: string } {
 }
 
 function mapError(error: PostgrestError): JoinErrorKey {
+    if (isRateLimited(error)) return 'rateLimited';
     switch (error.code) {
         case '28000':
             return 'notSignedIn';
@@ -99,7 +101,7 @@ export async function saveTeamsAction(_prev: SimpleFormState, formData: FormData
         p_team_a: teamA.data,
         p_team_b: teamB.data,
     });
-    if (error) return { error: 'generic' };
+    if (error) return { error: isRateLimited(error) ? 'rateLimited' : 'generic' };
     revalidatePath(`/${locale}/matches/${matchId}`);
     return { ok: true };
 }
@@ -133,7 +135,11 @@ export async function recordResultAction(
         p_score_b: scoreB.data,
         p_attended: attended.data,
     });
-    if (error) return { error: error.code === 'P0001' ? 'notStarted' : 'generic' };
+    if (error) {
+        return {
+            error: isRateLimited(error) ? 'rateLimited' : error.code === 'P0001' ? 'notStarted' : 'generic',
+        };
+    }
     revalidateMatch(locale, matchId);
     return { ok: true };
 }
@@ -158,7 +164,7 @@ export async function rateAction(_prev: SimpleFormState, formData: FormData): Pr
             p_rated_id: rated,
             p_score: stars,
         });
-        if (error) return { error: 'generic' };
+        if (error) return { error: isRateLimited(error) ? 'rateLimited' : 'generic' };
     }
     revalidatePath(`/${locale}/matches/${matchId}`);
     return { ok: true };
@@ -181,7 +187,8 @@ export async function postMessageAction(
     const { error } = await supabase
         .from('match_messages')
         .insert({ match_id: matchId, user_id: user!.id, body: body.data });
-    if (error) return { error: 'generic' };
+    // El chat ya tenía su límite (10 mensajes por minuto, código P0001).
+    if (error) return { error: isRateLimited(error) || error.code === 'P0001' ? 'rateLimited' : 'generic' };
     revalidatePath(`/${locale}/matches/${matchId}`);
     return { ok: true };
 }

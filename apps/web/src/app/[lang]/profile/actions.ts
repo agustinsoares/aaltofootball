@@ -8,10 +8,11 @@ import { cookies } from 'next/headers';
 import { safeNextPath } from '@/lib/auth';
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { isRateLimited } from '@/lib/rate-limit-errors';
 
 export interface ProfileFormState {
     saved?: boolean;
-    error?: 'nameRequired' | 'generic';
+    error?: 'nameRequired' | 'rateLimited' | 'generic';
 }
 
 const schema = z.object({
@@ -54,7 +55,7 @@ export async function saveProfileAction(
             locale: parsed.data.locale,
         })
         .eq('id', user.id);
-    if (error) return { error: 'generic' };
+    if (error) return { error: isRateLimited(error) ? 'rateLimited' : 'generic' };
 
     // El idioma del perfil también pasa a ser el idioma del sitio.
     (await cookies()).set(LOCALE_COOKIE, parsed.data.locale, {

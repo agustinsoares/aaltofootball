@@ -58,6 +58,10 @@ jobs:
           psql -v ON_ERROR_STOP=1 -f supabase/seed.sql
           psql -v ON_ERROR_STOP=1 -f supabase/seed.sql
           psql -c "select status, count(*) from public.matches group by status order by 1"
+      - name: Rate limit tests
+        run: |
+          psql -v ON_ERROR_STOP=1 -f supabase/tests/rate_limits_test.sql | tee /tmp/rate-limits.txt
+          ! grep -q FAIL /tmp/rate-limits.txt
 
   e2e:
     name: End-to-end (local Supabase + Playwright)

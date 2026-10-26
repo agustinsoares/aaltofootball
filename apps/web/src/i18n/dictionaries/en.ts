@@ -192,6 +192,7 @@ const en = {
             any: 'Anywhere',
         },
         errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
             nameRequired: 'Enter your name (2–80 characters).',
             generic: "We couldn't save your profile. Please try again.",
         },
@@ -264,6 +265,7 @@ const en = {
         shareText: '{title}: {date} at {venue}. Join me on Aalto Football!',
         back: 'All matches',
         errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
             notSignedIn: 'Sign in to join this match.',
             notFound: "This match doesn't exist anymore.",
             closed: 'This match is no longer accepting players.',
@@ -299,6 +301,8 @@ const en = {
         save: 'Save changes',
         cancel: 'Cancel',
         errors: {
+            rateLimited:
+                "You've created several matches in a few minutes. Wait 5 minutes before creating another one.",
             title: 'The title must have 3–120 characters.',
             venue: 'Choose a pitch.',
             dateTime: 'Choose a date and time in the future.',
@@ -334,7 +338,10 @@ const en = {
         reshuffle: 'Shuffle again',
         save: 'Save teams',
         hint: 'Balanced by level, with one goalkeeper per team. Review and save.',
-        errors: { generic: "We couldn't save the teams. Please try again." },
+        errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
+            generic: "We couldn't save the teams. Please try again.",
+        },
     },
     result: {
         title: 'Result',
@@ -344,6 +351,7 @@ const en = {
         save: 'Save result',
         edit: 'Edit result',
         errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
             score: 'Enter both scores (0–99).',
             notStarted: 'You can record the result once the match has started.',
             generic: "We couldn't save the result. Please try again.",
@@ -355,7 +363,10 @@ const en = {
         save: 'Save ratings',
         saved: 'Thanks! Your ratings were saved.',
         starLabel: '{score} of 5',
-        errors: { generic: "We couldn't save your ratings. Please try again." },
+        errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
+            generic: "We couldn't save your ratings. Please try again.",
+        },
     },
     chat: {
         title: 'Match chat',
@@ -364,7 +375,10 @@ const en = {
         empty: 'No messages yet. Say hi!',
         membersOnly: 'Join the match to see and write in the chat.',
         delete: 'Delete',
-        errors: { generic: "We couldn't send your message. Please try again." },
+        errors: {
+            rateLimited: "You're going too fast. Wait a few minutes and try again.",
+            generic: "We couldn't send your message. Please try again.",
+        },
     },
     player: {
         memberSince: 'Member since {date}',

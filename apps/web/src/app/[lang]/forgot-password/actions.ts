@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
 import { mapAuthError, type AuthErrorKey } from '@/lib/auth-errors';
+import { allowRequest } from '@/lib/rate-limit';
 import { requestOrigin } from '@/lib/request-origin';
 import { supabaseEnv } from '@/lib/supabase/env';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -20,6 +21,7 @@ export async function requestResetAction(_prev: ForgotState, formData: FormData)
     const rawEmail = String(formData.get('email') ?? '');
     const email = z.string().trim().toLowerCase().email().safeParse(rawEmail);
     if (!email.success) return { error: 'invalidEmail', email: rawEmail };
+    if (!(await allowRequest('passwordReset', email.data))) return { error: 'rateLimited', email: rawEmail };
 
     const supabase = await createSupabaseServerClient();
     const origin = await requestOrigin();

@@ -73,7 +73,11 @@ export default function ChatPanel({
                     })}
                 </ol>
             )}
-            {state.error && <Alert tone="error">{dict.errors.generic}</Alert>}
+            {state.error && (
+                <Alert tone="error">
+                    {state.error === 'rateLimited' ? dict.errors.rateLimited : dict.errors.generic}
+                </Alert>
+            )}
             <form action={action} className="flex gap-2">
                 <input type="hidden" name="lang" value={locale} />
                 <input type="hidden" name="matchId" value={matchId} />

@@ -440,6 +440,10 @@ export type Database = {
                 Returns: Database['public']['Enums']['participant_status'];
             };
             leave_match: { Args: { p_match_id: string }; Returns: undefined };
+            rate_limit_hit: {
+                Args: { p_key: string; p_max: number; p_window_seconds: number };
+                Returns: boolean;
+            };
             member_names: { Args: { p_limit?: number }; Returns: { full_name: string }[] };
             mark_reminders_sent: { Args: { p_participant_ids: string[] }; Returns: undefined };
             player_stats: {

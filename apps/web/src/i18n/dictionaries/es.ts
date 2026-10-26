@@ -196,6 +196,7 @@ const es: Dictionary = {
             any: 'Cualquiera',
         },
         errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
             nameRequired: 'Escribe tu nombre (2–80 caracteres).',
             generic: 'No pudimos guardar tu perfil. Vuelve a intentarlo.',
         },
@@ -272,6 +273,7 @@ const es: Dictionary = {
         shareText: '{title}: {date} en {venue}. ¡Súmate en Aalto Football!',
         back: 'Todos los partidos',
         errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
             notSignedIn: 'Inicia sesión para apuntarte a este partido.',
             notFound: 'Este partido ya no existe.',
             closed: 'Este partido ya no acepta jugadores.',
@@ -307,6 +309,7 @@ const es: Dictionary = {
         save: 'Guardar cambios',
         cancel: 'Cancelar',
         errors: {
+            rateLimited: 'Creaste varios partidos en pocos minutos. Espera 5 minutos para crear otro.',
             title: 'El título debe tener entre 3 y 120 caracteres.',
             venue: 'Elige una cancha.',
             dateTime: 'Elige una fecha y hora futuras.',
@@ -342,7 +345,10 @@ const es: Dictionary = {
         reshuffle: 'Mezclar de nuevo',
         save: 'Guardar equipos',
         hint: 'Equilibrados por nivel, con un portero por equipo. Revísalos y guárdalos.',
-        errors: { generic: 'No pudimos guardar los equipos. Vuelve a intentarlo.' },
+        errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
+            generic: 'No pudimos guardar los equipos. Vuelve a intentarlo.',
+        },
     },
     result: {
         title: 'Resultado',
@@ -352,6 +358,7 @@ const es: Dictionary = {
         save: 'Guardar resultado',
         edit: 'Editar resultado',
         errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
             score: 'Escribe los dos marcadores (0–99).',
             notStarted: 'Puedes cargar el resultado cuando el partido haya empezado.',
             generic: 'No pudimos guardar el resultado. Vuelve a intentarlo.',
@@ -363,7 +370,10 @@ const es: Dictionary = {
         save: 'Guardar valoraciones',
         saved: '¡Gracias! Guardamos tus valoraciones.',
         starLabel: '{score} de 5',
-        errors: { generic: 'No pudimos guardar tus valoraciones. Vuelve a intentarlo.' },
+        errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
+            generic: 'No pudimos guardar tus valoraciones. Vuelve a intentarlo.',
+        },
     },
     chat: {
         title: 'Chat del partido',
@@ -372,7 +382,10 @@ const es: Dictionary = {
         empty: 'Todavía no hay mensajes. ¡Saluda!',
         membersOnly: 'Apúntate al partido para ver y escribir en el chat.',
         delete: 'Borrar',
-        errors: { generic: 'No pudimos enviar tu mensaje. Vuelve a intentarlo.' },
+        errors: {
+            rateLimited: 'Vas demasiado rápido. Espera unos minutos y vuelve a intentarlo.',
+            generic: 'No pudimos enviar tu mensaje. Vuelve a intentarlo.',
+        },
     },
     player: {
         memberSince: 'Miembro desde {date}',

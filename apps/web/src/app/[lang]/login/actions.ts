@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { isProfileComplete, safeNextPath } from '@/lib/auth';
 import { mapAuthError, type AuthErrorKey } from '@/lib/auth-errors';
+import { allowRequest } from '@/lib/rate-limit';
 import { requestOrigin } from '@/lib/request-origin';
 import { supabaseEnv } from '@/lib/supabase/env';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -50,6 +51,7 @@ export async function signInAction(_prev: AuthFormState, formData: FormData): Pr
     const rawEmail = String(formData.get('email') ?? '');
     if (!email.success) return { fieldErrors: { email: 'invalidEmail' }, email: rawEmail };
     if (!password.success) return { error: 'invalidCredentials', email: rawEmail };
+    if (!(await allowRequest('signIn'))) return { error: 'rateLimited', email: rawEmail };
 
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.signInWithPassword({ email: email.data, password: password.data });
@@ -74,6 +76,7 @@ export async function signUpAction(_prev: AuthFormState, formData: FormData): Pr
     if (!fullName.success || !email.success || !password.success) {
         return { fieldErrors, email: rawEmail, fullName: rawName };
     }
+    if (!(await allowRequest('signUp'))) return { error: 'rateLimited', email: rawEmail, fullName: rawName };
 
     const supabase = await createSupabaseServerClient();
     const origin = await requestOrigin();
@@ -98,6 +101,7 @@ export async function magicLinkAction(_prev: AuthFormState, formData: FormData):
     const rawEmail = String(formData.get('email') ?? '');
     const email = emailSchema.safeParse(formData.get('email'));
     if (!email.success) return { fieldErrors: { email: 'invalidEmail' }, email: rawEmail };
+    if (!(await allowRequest('magicLink', email.data))) return { error: 'rateLimited', email: rawEmail };
 
     const supabase = await createSupabaseServerClient();
     const origin = await requestOrigin();

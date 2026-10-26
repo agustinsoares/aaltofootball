@@ -23,7 +23,11 @@ export default function RatingsForm({ locale, matchId, players, given, dict }: R
             <input type="hidden" name="matchId" value={matchId} />
             <p className="text-sm text-ink/70">{dict.hint}</p>
             {state.ok && <Alert tone="success">{dict.saved}</Alert>}
-            {state.error && <Alert tone="error">{dict.errors.generic}</Alert>}
+            {state.error && (
+                <Alert tone="error">
+                    {state.error === 'rateLimited' ? dict.errors.rateLimited : dict.errors.generic}
+                </Alert>
+            )}
             <ul className="divide-y divide-black/5">
                 {players.map((player) => (
                     <li key={player.id} className="flex flex-wrap items-center justify-between gap-2 py-2">

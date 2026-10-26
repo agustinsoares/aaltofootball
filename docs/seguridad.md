@@ -12,7 +12,7 @@ Revisé la web pensando como un atacante: qué podría robar, romper o usar en c
 | 4 | 🟠 Media | **Emails oficiales con texto del atacante** | Las plantillas de Supabase mostraban el nombre del usuario, y ese nombre lo controla quien se registra (también por la API). Alguien podía registrarse con el email de otra persona y un "nombre" con un enlace o texto engañoso, y Supabase lo mandaba desde nuestra dirección. | Las plantillas ya no incluyen datos que escriba el usuario. |
 | 5 | 🟠 Media | **Enlaces de email envenenados** | Los enlaces de confirmación y recuperación se armaban con la cabecera `Host` de la petición, que se puede falsear. Supabase ya bloqueaba los dominios ajenos, pero dependíamos solo de eso. | En producción los enlaces usan siempre la URL oficial. |
 | 6 | 🟠 Media | **Clickjacking** | Otra web podía cargar la nuestra en un marco invisible y engañar a un admin para que hiciera clic en "Make admin" o en "Delete account". | Cabeceras que prohíben los marcos (`frame-ancestors 'none'`, `X-Frame-Options`), además de una CSP que limita a qué dominios puede conectarse la web. |
-| 7 | 🟠 Media | **Spam y abuso por la API** | Una cuenta podía crear miles de partidos, inundar un chat, crear partidos en el pasado o ya "jugados" con un resultado inventado. | Límites en la base de datos: 30 partidos por día, 10 mensajes por minuto, fechas válidas, y los partidos siempre empiezan "abiertos" y sin resultado. |
+| 7 | 🟠 Media | **Spam y abuso por la API** | Una cuenta podía crear miles de partidos, inundar un chat, crear partidos en el pasado o ya "jugados" con un resultado inventado. | Límites en la base de datos: 3 partidos cada 5 minutos (un partido semanal cuenta como uno) y 30 por día, 10 mensajes por minuto, 20 altas/bajas en partidos cada 5 minutos, 60 valoraciones cada 10 minutos, 20 cambios de perfil cada 5 minutos, fechas válidas, y los partidos siempre empiezan "abiertos" y sin resultado. Quien se pasa recibe "vas demasiado rápido" (código PT429, HTTP 429). |
 | 8 | 🟡 Baja | **Datos en el dispositivo** | La app guardaba copias del perfil, el chat y el panel de admin para usarlas sin conexión. En un ordenador compartido, otra persona podía verlas. | Solo se guardan páginas públicas (inicio y listado), y se borraron las cachés antiguas. |
 | 9 | 🟡 Baja | Endurecimiento varios | Los visitantes tenían permisos de escritura en las tablas (RLS los frenaba igual). `avatar_url` aceptaba cualquier texto, lo que permitía píxeles de rastreo o textos enormes. El precio no tenía tope. La cabecera `X-Powered-By` revelaba la tecnología. | Permisos de escritura quitados, `avatar_url` limitado a `https` y 500 caracteres, precio máximo de 10 000 NOK, cabecera eliminada. |
 | 10 | ⚖️ RGPD | **No se podía borrar la cuenta** | El RGPD obliga a poder borrar tus datos. | Botón "Delete my account" en el perfil. Antes de borrar, la persona se baja de sus partidos futuros, así entra la lista de espera. |
@@ -57,7 +57,7 @@ Todo esto está cubierto por tests:
 
 ## Riesgos que quedan (aceptados o para más adelante)
 
-- **Usuarios registrados ven a otros usuarios.** Es parte del producto: quién juega, nivel y estadísticas. Alguien podría crear una cuenta para recopilar nombres. Mitigación futura: límite de peticiones en el Firewall de Vercel.
+- **Usuarios registrados ven a otros usuarios.** Es parte del producto: quién juega, nivel y estadísticas. Alguien podría crear una cuenta para recopilar nombres. Mitigación: límites de frecuencia en la base de datos; a futuro, además, límite de peticiones en el Firewall de Vercel.
 - **CSP con `'unsafe-inline'` en scripts.** Next.js inyecta scripts propios. Una CSP con *nonces* sería más estricta, pero obliga a renderizar todo dinámicamente. El resto de la CSP (a dónde puede conectarse la web, marcos, formularios) sí está activo.
 - **El rol de admin se ve en el perfil** para usuarios registrados. Así se sabe quién es admin (posible objetivo de phishing): de ahí la importancia del 2FA.
 - **Borrar la cuenta borra los partidos que organizaba esa persona**, también para los demás jugadores. Está avisado en el texto del borrado.
@@ -77,3 +77,12 @@ Creé dos páginas en la web, en inglés y noruego, enlazadas en el pie de pági
 - [ ] **Acuerdos de tratamiento de datos (DPA):** aceptarlos en Supabase (Settings → Legal), Vercel y Resend. Normalmente son un clic.
 - [ ] **Revisión legal:** los textos son un borrador sólido, pero conviene que los mire alguien con conocimiento de derecho noruego antes de crecer.
 - [ ] **Cambios:** si cambiás qué datos se recogen o a qué proveedores se mandan, actualizá la política.
+
+## Límites contra bots (rate limiting)
+
+Hay dos capas, y ninguna depende de que el ataque use los botones de la web:
+
+- **Con sesión (base de datos):** cada acción cuenta por usuario en `private.rate_limit_hits` y se corta con el código `PT429` (la API responde HTTP 429). Crear partidos: 3 cada 5 minutos; apuntarse/bajarse: 20 cada 5 minutos (el organizador que se suma a su propio partido no cuenta); valoraciones: 60 cada 10 minutos; equipos y resultado: 30 cada 5 minutos; perfil: 20 cada 5 minutos; chat: 10 mensajes por minuto. Los admins no tienen límite. Pruebas: `supabase/tests/rate_limits_test.sql` (corre en el CI).
+- **Sin sesión (web, por IP):** entrar 10 cada 5 minutos, crear cuenta 5 por hora, enlace por email y nueva contraseña 5 cada 15 minutos, y como máximo 3 emails cada 15 minutos a una misma dirección. La IP se guarda cifrada (HMAC), nunca en claro, y los registros se borran al día. Hace falta `SUPABASE_SECRET_KEY` en Vercel (ya está, la usa el cron); sin ella no se limita. Código: `apps/web/src/lib/rate-limit.ts`.
+
+Supabase Auth tiene además sus propios límites (Authentication → Rate Limits), pero ve todas las peticiones como si vinieran de Vercel, por eso se cuenta también por IP en la web.

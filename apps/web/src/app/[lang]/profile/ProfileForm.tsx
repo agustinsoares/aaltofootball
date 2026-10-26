@@ -33,7 +33,9 @@ export default function ProfileForm({
     return (
         <form action={action} className="space-y-5">
             {state.saved && <Alert tone="success">{t.saved}</Alert>}
-            {state.error === 'generic' && <Alert tone="error">{t.errors.generic}</Alert>}
+            {(state.error === 'generic' || state.error === 'rateLimited') && (
+                <Alert tone="error">{t.errors[state.error]}</Alert>
+            )}
             <input type="hidden" name="lang" value={locale} />
             {next && <input type="hidden" name="next" value={next} />}
 
