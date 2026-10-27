@@ -57,7 +57,7 @@ Todo esto está cubierto por tests:
 
 ## Riesgos que quedan (aceptados o para más adelante)
 
-- **Usuarios registrados ven a otros usuarios.** Es parte del producto: quién juega, nivel y estadísticas. Alguien podría crear una cuenta para recopilar nombres. Mitigación: límites de frecuencia en la base de datos; a futuro, además, límite de peticiones en el Firewall de Vercel.
+- **Usuarios registrados ven a otros usuarios.** Es parte del producto: quién juega, nivel y estadísticas. Alguien podría crear una cuenta para recopilar nombres. Mitigación: límites de frecuencia en la base de datos y en el Firewall de Vercel (ver «Límites contra bots»).
 - **CSP con `'unsafe-inline'` en scripts.** Next.js inyecta scripts propios. Una CSP con *nonces* sería más estricta, pero obliga a renderizar todo dinámicamente. El resto de la CSP (a dónde puede conectarse la web, marcos, formularios) sí está activo.
 - **El rol de admin se ve en el perfil** para usuarios registrados. Así se sabe quién es admin (posible objetivo de phishing): de ahí la importancia del 2FA.
 - **Borrar la cuenta borra los partidos que organizaba esa persona**, también para los demás jugadores. Está avisado en el texto del borrado.
@@ -80,9 +80,13 @@ Creé dos páginas en la web, en inglés y noruego, enlazadas en el pie de pági
 
 ## Límites contra bots (rate limiting)
 
-Hay dos capas, y ninguna depende de que el ataque use los botones de la web:
+Hay tres capas, y ninguna depende de que el ataque use los botones de la web:
+
+- **Firewall de Vercel (antes de llegar a la web):** regla *Limit form submissions per IP*: como máximo 60 peticiones `POST` por minuto por IP (ventana fija). Quien se pasa recibe `429 Too Many Requests` durante 5 minutos. Los formularios del sitio (Server Actions: entrar, crear cuenta, apuntarse, crear partido, chat…) son `POST`, así que un bot queda frenado sin consumir funciones ni base de datos; una persona usando la web no llega ni cerca. Se configura en Vercel → proyecto *alto-football* → **Firewall → Rules** y se aplica sin redesplegar. Si hace falta subir o bajar el límite, se edita ahí.
 
 - **Con sesión (base de datos):** cada acción cuenta por usuario en `private.rate_limit_hits` y se corta con el código `PT429` (la API responde HTTP 429). Crear partidos: 3 cada 5 minutos; apuntarse/bajarse: 20 cada 5 minutos (el organizador que se suma a su propio partido no cuenta); valoraciones: 60 cada 10 minutos; equipos y resultado: 30 cada 5 minutos; perfil: 20 cada 5 minutos; chat: 10 mensajes por minuto. Los admins no tienen límite. Pruebas: `supabase/tests/rate_limits_test.sql` (corre en el CI).
 - **Sin sesión (web, por IP):** entrar 10 cada 5 minutos, crear cuenta 5 por hora, enlace por email y nueva contraseña 5 cada 15 minutos, y como máximo 3 emails cada 15 minutos a una misma dirección. La IP se guarda cifrada (HMAC), nunca en claro, y los registros se borran al día. Hace falta `SUPABASE_SECRET_KEY` en Vercel (ya está, la usa el cron); sin ella no se limita. Código: `apps/web/src/lib/rate-limit.ts`.
 
 Supabase Auth tiene además sus propios límites (Authentication → Rate Limits), pero ve todas las peticiones como si vinieran de Vercel, por eso se cuenta también por IP en la web.
+
+Pendiente (requiere el plan Pro de Supabase): *Leaked password protection*, que rechaza contraseñas filtradas (HaveIBeenPwned). En el plan gratuito no está disponible.
