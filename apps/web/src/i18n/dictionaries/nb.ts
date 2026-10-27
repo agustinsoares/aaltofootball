@@ -416,9 +416,9 @@ const nb: Dictionary = {
         name: 'Navn',
         address: 'Adresse',
         area: 'Område',
-        lat: 'Breddegrad',
-        lng: 'Lengdegrad',
-        coordsHint: 'Tips: høyreklikk på banen i Google Maps for å kopiere koordinatene.',
+        mapsUrl: 'Google Maps-lenke',
+        mapsUrlHint:
+            'Åpne banen i Google Maps, trykk Del og kopier lenken. Vi henter plasseringen til kartene derfra.',
         surface: 'Underlag',
         changingRooms: 'Garderober',
         lights: 'Flomlys',
@@ -431,7 +431,10 @@ const nb: Dictionary = {
         errors: {
             name: 'Navnet må ha 2–120 tegn.',
             required: 'Fyll ut dette feltet.',
-            coords: 'Skriv inn gyldige koordinater.',
+            mapsUrl:
+                'Lim inn en Google Maps-lenke (https://maps.app.goo.gl/… eller https://www.google.com/maps/…).',
+            mapsUrlNoCoords:
+                'Vi fant ikke plasseringen i lenken. Åpne akkurat denne banen (med nålen) i Google Maps og kopier lenken fra Del.',
             duplicate: 'Det finnes allerede en bane med dette navnet.',
             inUse: 'Banen har kamper og kan derfor ikke slettes.',
             generic: 'Vi fikk ikke lagret banen. Prøv igjen.',

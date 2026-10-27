@@ -302,6 +302,7 @@ export type Database = {
                     id: string;
                     lat: number;
                     lng: number;
+                    maps_url: string | null;
                     name: string;
                     notes: string | null;
                     surface: Database['public']['Enums']['venue_surface'];
@@ -317,6 +318,7 @@ export type Database = {
                     id?: string;
                     lat: number;
                     lng: number;
+                    maps_url?: string | null;
                     name: string;
                     notes?: string | null;
                     surface?: Database['public']['Enums']['venue_surface'];
@@ -332,6 +334,7 @@ export type Database = {
                     id?: string;
                     lat?: number;
                     lng?: number;
+                    maps_url?: string | null;
                     name?: string;
                     notes?: string | null;
                     surface?: Database['public']['Enums']['venue_surface'];
