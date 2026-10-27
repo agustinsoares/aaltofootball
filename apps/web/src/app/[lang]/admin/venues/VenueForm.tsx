@@ -58,24 +58,18 @@ export default function VenueForm({ locale, venue, dict }: VenueFormProps) {
                         <Input id="area" name="area" defaultValue={v('area', venue?.area)} required />
                     </Field>
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label={t.lat} htmlFor="lat" error={fe('coords')} hint={t.coordsHint}>
-                        <Input
-                            id="lat"
-                            name="lat"
-                            inputMode="decimal"
-                            defaultValue={v('lat', venue?.lat ?? 60.39)}
-                        />
-                    </Field>
-                    <Field label={t.lng} htmlFor="lng">
-                        <Input
-                            id="lng"
-                            name="lng"
-                            inputMode="decimal"
-                            defaultValue={v('lng', venue?.lng ?? 5.32)}
-                        />
-                    </Field>
-                </div>
+                <Field label={t.mapsUrl} htmlFor="mapsUrl" error={fe('mapsUrl')} hint={t.mapsUrlHint}>
+                    <Input
+                        id="mapsUrl"
+                        name="mapsUrl"
+                        type="url"
+                        inputMode="url"
+                        placeholder="https://maps.app.goo.gl/…"
+                        defaultValue={v('mapsUrl', venue?.maps_url)}
+                        required
+                        maxLength={500}
+                    />
+                </Field>
                 <Field label={t.surface} htmlFor="surface">
                     <Select
                         id="surface"

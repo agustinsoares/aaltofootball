@@ -5,10 +5,12 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
+import { isGoogleMapsUrl } from '@/lib/google-maps';
+import { geocodeAddress, resolveMapsCoords } from '@/lib/google-maps-server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
 export type VenueErrorKey = keyof Dictionary['admin']['errors'];
-export type VenueField = 'name' | 'address' | 'area' | 'coords';
+export type VenueField = 'name' | 'address' | 'area' | 'mapsUrl';
 
 export interface VenueFormState {
     error?: VenueErrorKey;
@@ -16,15 +18,11 @@ export interface VenueFormState {
     values?: Record<string, string>;
 }
 
-const coordinate = (min: number, max: number) =>
-    z.preprocess((v) => Number(String(v).replace(',', '.')), z.number().min(min).max(max));
-
 const schema = z.object({
     name: z.string().trim().min(2).max(120),
     address: z.string().trim().min(2).max(200),
     area: z.string().trim().min(2).max(60),
-    lat: coordinate(-90, 90),
-    lng: coordinate(-180, 180),
+    mapsUrl: z.string().trim().max(500).refine(isGoogleMapsUrl),
     surface: z.enum(['artificial_turf', 'grass', 'indoor']),
     notes: z.string().trim().max(500),
 });
@@ -50,18 +48,25 @@ export async function saveVenueAction(_prev: VenueFormState, formData: FormData)
             const key = String(issue.path[0]);
             if (key === 'name') fieldErrors.name = 'name';
             else if (key === 'address' || key === 'area') fieldErrors[key] = 'required';
-            else if (key === 'lat' || key === 'lng') fieldErrors.coords = 'coords';
+            else if (key === 'mapsUrl') fieldErrors.mapsUrl = 'mapsUrl';
         }
         return { fieldErrors, values: values(formData) };
     }
+
+    // Las coordenadas (para los mapas y el calendario) salen del link de Google Maps; si el link
+    // no las trae, se busca la dirección en OpenStreetMap.
+    const coords =
+        (await resolveMapsCoords(parsed.data.mapsUrl)) ?? (await geocodeAddress(parsed.data.address));
+    if (!coords) return { fieldErrors: { mapsUrl: 'mapsUrlNoCoords' }, values: values(formData) };
 
     const supabase = await createSupabaseServerClient();
     const row = {
         name: parsed.data.name,
         address: parsed.data.address,
         area: parsed.data.area,
-        lat: parsed.data.lat,
-        lng: parsed.data.lng,
+        maps_url: parsed.data.mapsUrl,
+        lat: coords.lat,
+        lng: coords.lng,
         surface: parsed.data.surface,
         has_changing_rooms: formData.get('changingRooms') === 'on',
         has_lights: formData.get('lights') === 'on',

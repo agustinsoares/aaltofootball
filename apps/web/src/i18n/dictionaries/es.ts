@@ -421,9 +421,9 @@ const es: Dictionary = {
         name: 'Nombre',
         address: 'Dirección',
         area: 'Zona',
-        lat: 'Latitud',
-        lng: 'Longitud',
-        coordsHint: 'Consejo: haz clic derecho sobre la cancha en Google Maps para copiar sus coordenadas.',
+        mapsUrl: 'Link de Google Maps',
+        mapsUrlHint:
+            'En Google Maps abre la cancha, toca Compartir y copia el link. De ahí sacamos la ubicación para los mapas.',
         surface: 'Superficie',
         changingRooms: 'Vestuarios',
         lights: 'Iluminación',
@@ -436,7 +436,10 @@ const es: Dictionary = {
         errors: {
             name: 'El nombre debe tener entre 2 y 120 caracteres.',
             required: 'Completa este campo.',
-            coords: 'Escribe coordenadas válidas.',
+            mapsUrl:
+                'Pega un link de Google Maps (https://maps.app.goo.gl/… o https://www.google.com/maps/…).',
+            mapsUrlNoCoords:
+                'No encontramos la ubicación en ese link. En Google Maps abre la cancha exacta (con su marcador) y copia el link desde Compartir.',
             duplicate: 'Ya existe una cancha con este nombre.',
             inUse: 'Esta cancha tiene partidos, así que no se puede borrar.',
             generic: 'No pudimos guardar la cancha. Vuelve a intentarlo.',

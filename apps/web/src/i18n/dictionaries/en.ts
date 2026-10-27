@@ -414,9 +414,9 @@ const en = {
         name: 'Name',
         address: 'Address',
         area: 'Area',
-        lat: 'Latitude',
-        lng: 'Longitude',
-        coordsHint: 'Tip: right-click the pitch in Google Maps to copy its coordinates.',
+        mapsUrl: 'Google Maps link',
+        mapsUrlHint:
+            'In Google Maps, open the pitch, tap Share and copy the link. We take the location for the maps from it.',
         surface: 'Surface',
         changingRooms: 'Changing rooms',
         lights: 'Floodlights',
@@ -429,7 +429,9 @@ const en = {
         errors: {
             name: 'The name must have 2–120 characters.',
             required: 'Fill in this field.',
-            coords: 'Enter valid coordinates.',
+            mapsUrl: 'Paste a Google Maps link (https://maps.app.goo.gl/… or https://www.google.com/maps/…).',
+            mapsUrlNoCoords:
+                "We couldn't find the location in that link. In Google Maps, open the exact pitch (with its pin) and copy the link from Share.",
             duplicate: 'A pitch with this name already exists.',
             inUse: "This pitch has matches, so it can't be deleted.",
             generic: "We couldn't save the pitch. Please try again.",

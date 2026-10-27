@@ -120,8 +120,11 @@ const errors = [];
     await admin.fill('#name', 'E2E Nygårdsparken');
     await admin.fill('#address', 'Nygårdsparken, 5015 Bergen');
     await admin.fill('#area', 'Sentrum');
-    await admin.fill('#lat', '60.3861');
-    await admin.fill('#lng', '5.3285');
+    // Link de Google Maps con el marcador del lugar: de ahí salen las coordenadas.
+    await admin.fill(
+        '#mapsUrl',
+        'https://www.google.com/maps/place/Nyg%C3%A5rdsparken/@60.3858,5.3270,17z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!8m2!3d60.3861!4d5.3285',
+    );
     await admin.click('button:has-text("Save pitch")');
     await admin.waitForURL(`${B}/en/admin/venues`, { waitUntil: 'commit' });
     await admin.waitForSelector('text=E2E Nygårdsparken');

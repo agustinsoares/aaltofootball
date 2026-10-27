@@ -189,5 +189,10 @@ begin
     -- "3 partidos cada 5 minutos" de quien los organiza (p. ej. en las pruebas e2e).
     update public.matches set created_at = now() - interval '1 day'
     where created_at > now() - interval '1 day';
+
+    -- Link de Google Maps de las canchas de ejemplo, armado con sus coordenadas.
+    update public.venues
+    set maps_url = 'https://www.google.com/maps/search/?api=1&query=' || lat || ',' || lng
+    where maps_url is null;
 end;
 $seed$;
